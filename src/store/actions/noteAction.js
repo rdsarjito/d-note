@@ -28,3 +28,20 @@ export const deleteNote = (note) => {
       })
   };
 };
+
+export const toggleFav = (note) => {
+  return (dispatch, getState, { getFirestore }) => {
+    const favstatus = !note.favorite;
+    const firestore = getFirestore();
+    firestore.collection('notes').doc(note.id).update({
+      favorite: favstatus,
+    })
+      .then(() => {
+        console.log('toggle favorite succesfully');
+      })
+      .catch(err => {
+        console.log(err);
+      })
+  };
+};
+
